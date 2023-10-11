@@ -650,7 +650,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>D:/dev/aulas/bi/2023/pdi/feriados.csv</filename>
+    <filename>${Internal.Entry.Current.Directory}/feriados.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>

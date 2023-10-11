@@ -293,10 +293,10 @@
       <attributes/>
       <start>Y</start>
       <dummy>N</dummy>
-      <repeat>Y</repeat>
-      <schedulerType>2</schedulerType>
-      <intervalSeconds>0</intervalSeconds>
-      <intervalMinutes>60</intervalMinutes>
+      <repeat>N</repeat>
+      <schedulerType>1</schedulerType>
+      <intervalSeconds>30</intervalSeconds>
+      <intervalMinutes>0</intervalMinutes>
       <hour>23</hour>
       <minutes>30</minutes>
       <weekDay>1</weekDay>
@@ -304,8 +304,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>160</xloc>
-      <yloc>192</yloc>
+      <xloc>64</xloc>
+      <yloc>176</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -316,8 +316,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>592</xloc>
-      <yloc>192</yloc>
+      <xloc>800</xloc>
+      <yloc>176</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -355,8 +355,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>720</xloc>
-      <yloc>96</yloc>
+      <xloc>368</xloc>
+      <yloc>64</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -366,7 +366,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>D:/dev/aulas/bi/2023/pdi/ETL-Funcionario.ktr</filename>
+      <filename>${Internal.Entry.Current.Directory}/ETL-Funcionario.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -395,7 +395,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>304</xloc>
-      <yloc>192</yloc>
+      <yloc>176</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -405,7 +405,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>D:/dev/aulas/bi/2023/pdi/ETL-Filme.ktr</filename>
+      <filename>${Internal.Entry.Current.Directory}/ETL-Filme.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -433,8 +433,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>448</xloc>
-      <yloc>192</yloc>
+      <xloc>560</xloc>
+      <yloc>176</yloc>
       <attributes_kjc/>
     </entry>
   </entries>
