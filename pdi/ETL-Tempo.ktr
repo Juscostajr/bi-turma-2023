@@ -437,6 +437,69 @@
   <notepads>
   </notepads>
   <connection>
+    <name>AulaDW - Sakila</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>sakila</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce108fc0fc8e</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
+        <attribute>500</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.useCursorFetch</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>3306</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>STREAM_RESULTS</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
+  <connection>
     <name>AulaDW-Dw</name>
     <server>localhost</server>
     <type>MYSQL</type>
@@ -501,16 +564,6 @@
   </connection>
   <order>
     <hop>
-      <from>Inicializar Data</from>
-      <to>Contador</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Contador</from>
-      <to>Gerar Datas</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Gerar Datas</from>
       <to>Mesclar Feriados</to>
       <enabled>Y</enabled>
@@ -521,13 +574,23 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
+      <from>Mapear Dia Semana</from>
+      <to>Mapear Mes</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
       <from>Mesclar Feriados</from>
+      <to>Converter null em false</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Converter null em false</from>
       <to>Mapear Dia Semana</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Mapear Dia Semana</from>
-      <to>Mapear Mes</to>
+      <from>Extrair Datas</from>
+      <to>Gerar Datas</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -536,109 +599,6 @@
       <enabled>Y</enabled>
     </hop>
   </order>
-  <step>
-    <name>Carregar DIM_TEMPO</name>
-    <type>InsertUpdate</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>AulaDW-Dw</connection>
-    <commit>100</commit>
-    <update_bypassed>N</update_bypassed>
-    <lookup>
-      <schema>dw</schema>
-      <table>DIM_TEMPO</table>
-      <key>
-        <name>data_referencia</name>
-        <field>data_referencia</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>data_referencia</name>
-        <rename>data_referencia</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>ano</name>
-        <rename>ano</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>trimestre</name>
-        <rename>trimeste</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>mes</name>
-        <rename>nm_mes</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>dia_da_semana</name>
-        <rename>nm_dia_semana</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>flag_feriado</name>
-        <rename>ie_feriado</rename>
-        <update>N</update>
-      </value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>928</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Contador</name>
-    <type>Sequence</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <valuename>count</valuename>
-    <use_database>N</use_database>
-    <connection/>
-    <schema/>
-    <seqname>SEQ_</seqname>
-    <use_counter>Y</use_counter>
-    <counter_name/>
-    <start_at>0</start_at>
-    <increment_by>1</increment_by>
-    <max_value>11000</max_value>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>208</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
   <step>
     <name>Extrair Feriados</name>
     <type>CsvInput</type>
@@ -708,7 +668,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>464</xloc>
+      <xloc>432</xloc>
       <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
@@ -727,15 +687,15 @@
     <failIfNoFile>Y</failIfNoFile>
     <calculation>
       <field_name>data_referencia</field_name>
-      <calc_type>ADD_DAYS</calc_type>
-      <field_a>dt_inical</field_a>
-      <field_b>count</field_b>
+      <calc_type>REMOVE_TIME_FROM_DATE</calc_type>
+      <field_a>data_origem</field_a>
+      <field_b/>
       <field_c/>
-      <value_type>None</value_type>
+      <value_type>Date</value_type>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
       <remove>N</remove>
-      <conversion_mask>yyyy-MM-dd</conversion_mask>
+      <conversion_mask/>
       <decimal_symbol/>
       <grouping_symbol/>
       <currency_symbol/>
@@ -746,7 +706,7 @@
       <field_a>data_referencia</field_a>
       <field_b/>
       <field_c/>
-      <value_type>None</value_type>
+      <value_type>Integer</value_type>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
       <remove>N</remove>
@@ -761,7 +721,7 @@
       <field_a>data_referencia</field_a>
       <field_b/>
       <field_c/>
-      <value_type>None</value_type>
+      <value_type>Integer</value_type>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
       <remove>N</remove>
@@ -776,7 +736,7 @@
       <field_a>data_referencia</field_a>
       <field_b/>
       <field_c/>
-      <value_type>None</value_type>
+      <value_type>Integer</value_type>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
       <remove>N</remove>
@@ -791,7 +751,7 @@
       <field_a>data_referencia</field_a>
       <field_b/>
       <field_c/>
-      <value_type>None</value_type>
+      <value_type>Integer</value_type>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
       <remove>N</remove>
@@ -806,7 +766,7 @@
       <field_a>data_referencia</field_a>
       <field_b/>
       <field_c/>
-      <value_type>None</value_type>
+      <value_type>Integer</value_type>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
       <remove>N</remove>
@@ -824,51 +784,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>352</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Inicializar Data</name>
-    <type>RowGenerator</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>dt_inical</name>
-        <type>Date</type>
-        <format>dd/MM/yyyy</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>01/01/2004</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <limit>11000</limit>
-    <never_ending>N</never_ending>
-    <interval_in_ms>5000</interval_in_ms>
-    <row_time_field>now</row_time_field>
-    <last_time_field>FiveSecondsAgo</last_time_field>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>64</xloc>
+      <xloc>272</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
@@ -926,7 +842,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>640</xloc>
+      <xloc>688</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1004,7 +920,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>784</xloc>
+      <xloc>816</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1050,7 +966,180 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>464</xloc>
+      <xloc>432</xloc>
+      <yloc>176</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Converter null em false</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>var flag_feriado = ie_feriado == true</jsScript_script>
+      </jsScript>
+    </jsScripts>
+    <fields>
+      <field>
+        <name>flag_feriado</name>
+        <rename>flag_feriado</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>560</xloc>
+      <yloc>176</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Extrair Datas</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>AulaDW - Sakila</connection>
+    <sql>SELECT DISTINCT
+ DATE(rental_date) as data_origem
+FROM sakila.rental
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>Date</type>
+        <storagetype>normal</storagetype>
+        <name>data_origem</name>
+        <length>-1</length>
+        <precision>-1</precision>
+        <origin>Extrair Datas</origin>
+        <comments>data_origem</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>pt_BR</date_format_locale>
+        <date_format_timezone>America/Sao_Paulo</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>96</xloc>
+      <yloc>176</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Carregar DIM_TEMPO</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>AulaDW-Dw</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema>dw</schema>
+      <table>DIM_TEMPO</table>
+      <key>
+        <name>data_referencia</name>
+        <field>data_referencia</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>data_referencia</name>
+        <rename>data_referencia</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ano</name>
+        <rename>ano</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>trimestre</name>
+        <rename>trimeste</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>mes</name>
+        <rename>nm_mes</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>flag_feriado</name>
+        <rename>flag_feriado</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>dia_da_semana</name>
+        <rename>nm_dia_semana</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>944</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
